@@ -84,13 +84,18 @@ Smilegate DEV Camp - PJ2. 인증 서버 만들기
 - 인증 성공한 경우, 재발급 받은 Access Token 쿠키에 저장. 작업 실행.
 - 인증 실패한 경우, 로그인 페이지로 이동
 
+## 스크린샷
+<img width="400" alt="회원가입" src="https://user-images.githubusercontent.com/26567880/102802665-5b71c600-43fa-11eb-98e9-8b5e3b9cc1a9.png">
+<img width="400" alt="인증메일" src="https://user-images.githubusercontent.com/26567880/102802693-64fb2e00-43fa-11eb-9caa-7e0d53c5fb26.png">
+<img width="400" alt="로그인" src="https://user-images.githubusercontent.com/26567880/102802683-62003d80-43fa-11eb-89c9-d4be3b549ffa.png">
+<img width="400" alt="사용자페이지" src="https://user-images.githubusercontent.com/26567880/102802705-69274b80-43fa-11eb-8edf-c8af718c4c43.png">
+
 ## Todo
 [서버]
 - OAuth2 소셜 로그인
 - Swagger 로 API 관리해보기
 
 [프론트]
-- ~~요청 헤더에 토큰 넣기, 응답 헤더 값 읽기, 쿠키 저장 Test~~
-- Admin 페이지 완성하기
+- Redux의 Store로 state 관리하기
 - Redux의 Dispatch 사용하여, 로딩 중 스핀 띄우기
 
