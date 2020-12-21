@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import { request } from '../utils/axios';
+import { withRouter, Link } from 'react-router-dom';
+import axios from 'axios';
+import { DOMAIN } from '../utils/enum';
+import Cookies from 'js-cookie';
 import { Form, Button } from 'react-bootstrap';
 
 function LoginPage (props) {
@@ -15,6 +17,7 @@ function LoginPage (props) {
     setPassword(e.currentTarget.value);
   };
 
+  // 로그인 버튼 핸들러
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
@@ -23,15 +26,22 @@ function LoginPage (props) {
       password: Password,
     };
 
-    request('post', '/api/user/login', reqBody)
+    axios({
+      method: 'post',
+      url: DOMAIN + '/api/user/login',
+      data: reqBody,
+    })
       .then((res) => {
-        console.log(res);
-        if (res) {
-          props.history.push('/');
-        } else {
-          alert('Login Failed');
-        }
+        console.log('Login');
+        console.log(res.data);
+        Cookies.set('access-token', res.headers['access-token']);
+        Cookies.set('refresh-token', res.headers['refresh-token']);
+        props.history.push('/');
       })
+      .catch((err) => {
+        console.log(err);
+        alert('Login Failed');
+      });
   };
 
   return (
@@ -58,6 +68,10 @@ function LoginPage (props) {
         <br />
         <Button variant='info' type='submit'>로그인</Button>
       </Form>
+      <br />
+      <Link to='/register'>
+        <Button variant='warning' type='submit'>회원가입</Button>
+      </Link>
     </div>
   );
 }

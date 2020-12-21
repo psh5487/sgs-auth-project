@@ -14,13 +14,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -99,7 +96,7 @@ public class UserController {
         String email = request.get("email");
 
         // Refresh Token 삭제
-//        redisUtil.deleteData(email);
+        redisUtil.deleteData(email);
 
         return new ResponseEntity(email, HttpStatus.OK);
     }

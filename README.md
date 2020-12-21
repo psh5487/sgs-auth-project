@@ -90,7 +90,7 @@ Smilegate DEV Camp - PJ2. 인증 서버 만들기
 - Swagger 로 API 관리해보기
 
 [프론트]
-- 요청 헤더에 토큰 넣기, 응답 헤더 값 읽기, 쿠키 저장 Test
+- ~~요청 헤더에 토큰 넣기, 응답 헤더 값 읽기, 쿠키 저장 Test~~
 - Admin 페이지 완성하기
 - Redux의 Dispatch 사용하여, 로딩 중 스핀 띄우기
 

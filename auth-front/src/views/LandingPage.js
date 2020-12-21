@@ -1,10 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { DOMAIN } from '../utils/enum';
 import { Button } from 'react-bootstrap';
 
 function LandingPage (props) {
+  // 로그아웃 처리 함수
   const onClickHandler = () => {
     const reqBody = {
       email: 'ff@ff.com'
@@ -16,13 +18,14 @@ function LandingPage (props) {
       data: reqBody,
     })
       .then((res) => {
-        console.log(res.data);
+        console.log(res + ' Logout');
+        Cookies.remove('access-token');
+        Cookies.remove('refresh-token');
         props.history.push('/login');
       })
       .catch((err) => {
         console.log(err);
       });
-
   };
 
   return (

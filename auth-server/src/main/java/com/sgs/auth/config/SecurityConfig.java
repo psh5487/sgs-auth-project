@@ -1,8 +1,6 @@
 package com.sgs.auth.config;
 
 import com.sgs.auth.security.JwtAuthenticationFilter;
-import com.sgs.auth.security.JwtTokenProvider;
-import com.sgs.auth.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         http
                 .cors().disable()
                 .csrf().disable()
@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // PreFlightRequest 모두 허용
                 .antMatchers("/api/user/join").permitAll()
                 .antMatchers("/api/user/login").permitAll()
                 .antMatchers("/api/user/logout").permitAll()

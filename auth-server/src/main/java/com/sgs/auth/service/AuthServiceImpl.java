@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
         redisUtil.setDataExpire(uuid.toString(), user.getEmail(), RedisUtil.EMAIL_VERIFICATION_KEY_DURATION);
 
         // 메일 보내기
-        emailService.sendMail(user.getEmail(), "[STOVE] 회원가입 인증메일 입니다.", VERIFICATION_LINK + uuid.toString());
+        emailService.sendMail(user.getEmail(), "[STOVE] 회원가입 인증메일입니다.", VERIFICATION_LINK + uuid.toString());
     }
 
     // 인증 Email Key 확인하기

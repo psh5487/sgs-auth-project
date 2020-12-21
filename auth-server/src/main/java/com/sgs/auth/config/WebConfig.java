@@ -1,5 +1,6 @@
 package com.sgs.auth.config;
 
+import com.sgs.auth.security.JwtTokenProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,10 +10,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedOrigins("http://localhost:3000", "chrome-extension://aejoelaoggembcahagimdiliamlcdmfm")
                 .allowedMethods("*")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .exposedHeaders(JwtTokenProvider.ACCESS_TOKEN_NAME, JwtTokenProvider.REFRESH_TOKEN_NAME);
     }
 }

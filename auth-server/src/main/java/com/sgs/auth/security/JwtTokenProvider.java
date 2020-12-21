@@ -34,8 +34,8 @@ public class JwtTokenProvider {
     public final static long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 10; // 10분
     public final static long REFRESH_TOKEN_VALID_TIME =  1000L * 60 * 60 * 24 * 2; // 2일
 
-    public final static String ACCESS_TOKEN_NAME = "accessToken";
-    public final static String REFRESH_TOKEN_NAME = "refreshToken";
+    public final static String ACCESS_TOKEN_NAME = "access-token";
+    public final static String REFRESH_TOKEN_NAME = "refresh-token";
 
     // Secret Key
     @Value("${jwt.secret}")

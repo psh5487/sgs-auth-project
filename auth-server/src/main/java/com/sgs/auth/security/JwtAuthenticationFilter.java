@@ -69,8 +69,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        // 헤더에 Access Token 넣어주기
-        response.addHeader(jwtTokenProvider.ACCESS_TOKEN_NAME, jwtToken);
+        // 헤더에 Access-Token 넣어주기
+        response.setHeader(jwtTokenProvider.ACCESS_TOKEN_NAME, jwtToken);
 
         // Access Token, Refresh Token 둘 다 유효하지 않을 경우, 아무 일도 안 일어남. 다시 로그인 해야함.
 
