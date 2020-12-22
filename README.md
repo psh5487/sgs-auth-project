@@ -13,6 +13,9 @@ Smilegate DEV Camp - PJ2. 인증 서버 만들기
 - React / Redux
 - React-Bootstrap
 
+## 아키텍쳐
+<img width="800" alt="아키텍쳐" src="https://user-images.githubusercontent.com/26567880/102894518-92051a80-44a6-11eb-9b0a-5902ea200a82.png">
+
 ## 기능 별 로직
 - 공통 사항 : Access Token 과 Refresh Token 모두 JWT 사용
 
