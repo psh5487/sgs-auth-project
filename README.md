@@ -91,14 +91,21 @@ Smilegate DEV Camp - PJ2. 인증 서버 만들기
 <img width="400" alt="회원가입" src="https://user-images.githubusercontent.com/26567880/102802665-5b71c600-43fa-11eb-98e9-8b5e3b9cc1a9.png">
 <img width="400" alt="인증메일" src="https://user-images.githubusercontent.com/26567880/102802693-64fb2e00-43fa-11eb-9caa-7e0d53c5fb26.png">
 <img width="400" alt="로그인" src="https://user-images.githubusercontent.com/26567880/102802683-62003d80-43fa-11eb-89c9-d4be3b549ffa.png">
-<img width="400" alt="사용자페이지" src="https://user-images.githubusercontent.com/26567880/102802705-69274b80-43fa-11eb-8edf-c8af718c4c43.png">
+
+- 일반 User 페이지 
+<img width="700" alt="사용자페이지_2" src="https://user-images.githubusercontent.com/26567880/103175277-18a56780-48ac-11eb-8348-e0ebcd4d5281.png">
+
+- Admin 페이지
+<img width="700" alt="관리자 페이지" src="https://user-images.githubusercontent.com/26567880/103175284-1f33df00-48ac-11eb-9cff-6276a8ddee22.png">
 
 ## Todo
 [서버]
 - OAuth2 소셜 로그인
 - Swagger 로 API 관리해보기
+- Admin 기능 추가
 
 [프론트]
-- Redux의 Store로 state 관리하기
+- Redux의 Store로 state를 관리하여, 사용자 정보 표시 (Done)
 - Redux의 Dispatch 사용하여, 로딩 중 스핀 띄우기
+- Typescript 적용하기
 
