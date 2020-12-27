@@ -105,7 +105,7 @@ Smilegate DEV Camp - PJ2. 인증 서버 만들기
 - Admin 기능 추가
 
 [프론트]
-- Redux의 Store로 state를 관리하여, 사용자 정보 표시 (Done)
+- ~Redux의 Store로 state를 관리하여, 사용자 정보 표시~ (Done)
 - Redux의 Dispatch 사용하여, 로딩 중 스핀 띄우기
 - Typescript 적용하기
 
