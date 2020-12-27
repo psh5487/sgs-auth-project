@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../reducers/user';
 import axios from 'axios';
 import { DOMAIN } from '../utils/enum';
 import Cookies from 'js-cookie';
 
-export default function (Componet, option, adminRoute = null) {
-  // option :
-  // null => 아무나 접근 가능, true => 로그인한 유저만 접근 가능, false => 로그인한 유저는 접근 불가능
-  function AuthCheck (props) {
-    // useEffect를 사용해서 초기 검증 실행
-    useEffect(() => {
-      // Access Token 쿠키에서 읽고, 인증 요청 헤더에 넣기
-      const jwtToken = Cookies.get('access-token');
+function Auth (Componet, option, props) {
+  // dispatch 사용하기
+  const dispatch = useDispatch();
 
+  function AuthCheck (props) {
+    // Access Token 쿠키에서 읽고, 인증 요청 헤더에 넣기
+    const jwtToken = Cookies.get('access-token');
+
+    useEffect(() => {
       axios({
         method: 'get',
         url: DOMAIN + '/api/loggedInUser/myInfo',
@@ -20,14 +22,20 @@ export default function (Componet, option, adminRoute = null) {
         },
       })
         .then((res) => {
-          console.log('Auth check')
-          console.log(res.data);
+          console.log('Auth check');
+          const user = res.data;
+          console.log(user);
+
+          // user state 변화주기
+          dispatch(login(user));
+
+          // Cookie에 토큰 저장
+          Cookies.set('access-token', res.headers['access-token']);
         })
         .catch((err) => {
           console.log(err);
           props.history.push('/login');
         });
-
     }, []);
 
     return <Componet />;
@@ -35,3 +43,5 @@ export default function (Componet, option, adminRoute = null) {
 
   return AuthCheck;
 }
+
+export default Auth;

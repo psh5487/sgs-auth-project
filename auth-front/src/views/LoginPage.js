@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../reducers/user';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { DOMAIN } from '../utils/enum';
@@ -17,6 +19,9 @@ function LoginPage (props) {
     setPassword(e.currentTarget.value);
   };
 
+  // dispatch 사용하기
+  const dispatch = useDispatch();
+
   // 로그인 버튼 핸들러
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -33,14 +38,23 @@ function LoginPage (props) {
     })
       .then((res) => {
         console.log('Login');
-        console.log(res.data);
+
+        const user = res.data;
+        console.log(user);
+
+        // user state 변화주기
+        dispatch(login(user));
+
+        // Cookie에 토큰 저장
         Cookies.set('access-token', res.headers['access-token']);
         Cookies.set('refresh-token', res.headers['refresh-token']);
+
+        // 랜딩페이지로 이동
         props.history.push('/');
       })
       .catch((err) => {
         console.log(err);
-        alert('Login Failed');
+        alert('Login Failed. ' + err);
       });
   };
 

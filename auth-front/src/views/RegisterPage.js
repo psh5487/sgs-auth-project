@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { request } from '../utils/axios';
+import axios from 'axios';
+import { DOMAIN } from '../utils/enum';
 import { Form, Button } from 'react-bootstrap';
 
 function RegisterPage (props) {
@@ -41,16 +42,18 @@ function RegisterPage (props) {
         password: Password,
       };
 
-      request('post', '/api/user/join', reqBody)
+      axios({
+        method: 'post',
+        url: DOMAIN + '/api/user/join',
+        data: reqBody,
+      })
         .then((res) => {
-          console.log(res);
-          if (res) {
-            alert('Register Success');
-            props.history.push('/login');
-          } else {
-            alert('Register Failed. (Already existed user)');
-          }
+          console.log(res + ' Register Success');
+          props.history.push('/login');
         })
+        .catch((err) => {
+          alert('Register Failed. ' + err);
+        });
     } else {
       alert('Password is not corresponding');
     }
