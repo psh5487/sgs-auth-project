@@ -3,7 +3,6 @@ package com.sgs.auth.controller;
 import com.sgs.auth.dto.user.AuthenticationRequest;
 import com.sgs.auth.dto.user.JoinRequest;
 import com.sgs.auth.dto.user.UserDto;
-import com.sgs.auth.dto.user.VerifyEmailRequest;
 import com.sgs.auth.model.User;
 import com.sgs.auth.model.UserRole;
 import com.sgs.auth.security.JwtTokenProvider;
@@ -42,20 +41,15 @@ public class UserController {
                     joinRequest.getEmail()
             );
 
-            // 사용자 권한 ROLE_USER 로 변경 - Email 인증을 통해 변경할 수도
-            user = authService.modifyUserRole(user, UserRole.ROLE_USER);
+            authService.sendVerificationEmail(user);
 
-            UserDto userDto = UserDto.builder()
-                    .email(user.getEmail())
-                    .nickname(user.getNickname())
-                    .name(user.getName())
-                    .role(user.getRole())
-                    .build();
+            return new ResponseEntity("Sending Verification Email Success", HttpStatus.OK);
 
-            return new ResponseEntity(userDto, HttpStatus.OK);
-
-        } catch (RuntimeException e) { // 중복 사용자 or 요청 시 잘못된 인자 값 예외
+        } catch (RuntimeException e) { // 요청 시 잘못된 인자값 예외 or 중복 사용자 or 메일 인증 전 join 조차 안된 사용자
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (Exception e) {
+            return new ResponseEntity("Failed sending Verification email.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -99,25 +93,6 @@ public class UserController {
         redisUtil.deleteData(email);
 
         return new ResponseEntity(email, HttpStatus.OK);
-    }
-
-    @PostMapping("/verify")
-    public ResponseEntity verify(@RequestBody VerifyEmailRequest requestVerifyEmail) throws NotFoundException {
-
-        try {
-            User user = authService.findMemberByEmail(requestVerifyEmail.getEmail())
-                    .orElseThrow(() -> new RuntimeException("Not Existed User"));
-
-            // 인증메일 보내기
-            authService.sendVerificationEmail(user);
-            return new ResponseEntity("Sending Verification Email Success", HttpStatus.OK);
-
-        } catch (RuntimeException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-
-        } catch (Exception e) {
-            return new ResponseEntity("Failed sending Verification email.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @GetMapping("/verify/{key}")

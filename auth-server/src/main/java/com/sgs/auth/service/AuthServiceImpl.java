@@ -42,7 +42,11 @@ public class AuthServiceImpl implements AuthService {
 
         // 중복 체크
         findMemberByEmail(email).ifPresent((user) -> {
-            throw new RuntimeException("Already existed User");
+            if(user.getRole() == UserRole.ROLE_NOT_PERMITTED) { // 인증 못 받은 사용자로 남아있을 경우, 삭제하기 (인증 토큰 유효 시간 끝났을 경우 고려함)
+                userRepository.deleteByEmail(email);
+            } else {
+                throw new RuntimeException("Already existed User");
+            }
         });
 
         // salt 생성 및 비밀번호 encoding
@@ -111,7 +115,9 @@ public class AuthServiceImpl implements AuthService {
     // 인증 Email Key 확인하기
     @Override
     public User verifyEmail(String key) throws NotFoundException {
+
         String email = redisUtil.getData(key);
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Not Existed"));
 
